@@ -52,3 +52,5 @@ jobs:
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
+      - name: Prints the GitHub workspace
+        run: echo "GitHub workspace is "${{github.workspace}}/reports"
