@@ -26,5 +26,5 @@ jobs:
         with:
           target: "http://localhost:5000"
           fail_action: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           issue_title: DAST Security Tests
