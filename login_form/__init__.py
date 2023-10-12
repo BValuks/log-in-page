@@ -1,12 +1,20 @@
 import os
 from flask import Flask
+from dotenv import load_dotenv
+from flask_wtf.csrf import CSRFProtect
+
+load_dotenv()
+
+csrf = CSRFProtect()
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    csrf.init_app(app)
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY', 'super_secret_key'), #! SECRET KEY SHOULD NOT BE HARDCODED
+        SECRET_KEY=os.environ.get('SECRET_KEY'),
         DATABASE=os.path.join(app.instance_path, 'login_form.sqlite'),
+        SESSION_COOKIE_SAMESITE='Lax'
     )
 
     if test_config is None:
@@ -35,7 +43,8 @@ def create_app(test_config=None):
 
     @app.after_request
     def add_security_headers(resp):
-        resp.headers['Content-Security-Policy']='default-src \'self\''
+        resp.headers['Content-Security-Policy'] = 'default-src \'self\'; script-src \'self\'; style-src \'self\'; frame-ancestors \'self\'; form-action \'self\''#! THIS IS A SECURITY RISK
+        resp.headers['X-Content-Type-Options'] = 'nosniff'
         return resp
 
     return app
