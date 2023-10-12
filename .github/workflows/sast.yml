@@ -14,7 +14,7 @@ jobs:
       - name: Bandit - Security Issues in Python code
         uses: mdegis/bandit-action@v1.0
         with:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           path: "."
           exit_zero: true
 
