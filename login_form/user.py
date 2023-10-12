@@ -7,7 +7,7 @@ class User():
   def create(cls, username, password):
     db = get_db()
     db.execute(
-      "INSERT INTO user (username, password) VALUES (%s, %s)", [username, password] #! THESE SHOULD BE USING PLACEHOLDERS
+      "INSERT INTO user (username, password) VALUES (?, ?)", [username, password] #! THESE SHOULD BE USING PLACEHOLDERS
     )
     db.commit()
 
@@ -15,7 +15,7 @@ class User():
   def find_with_credentials(cls, username, password):
     db = get_db()
     user = db.execute(
-      "SELECT id, username, password FROM user WHERE username = '%s' AND password = '%s'", [username, password] #! THESE SHOULD BE USING PLACEHOLDERS
+      "SELECT id, username, password FROM user WHERE username = ? AND password = ?", [username, password] #! THESE SHOULD BE USING PLACEHOLDERS
     ).fetchone()
     print(user)
     if user:
@@ -26,7 +26,7 @@ class User():
   @classmethod
   def find_by_id(cls, user_id):
     user = get_db().execute(
-      'SELECT id, username, password FROM user WHERE id = %s', [user_id] #! THESE SHOULD BE USING PLACEHOLDERS
+      'SELECT id, username, password FROM user WHERE id = ?', [user_id] #! THESE SHOULD BE USING PLACEHOLDERS
     ).fetchone()
     if user:
       return User(user['username'], user['password'], user['id'])
