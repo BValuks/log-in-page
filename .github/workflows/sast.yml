@@ -16,7 +16,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           path: "."
-          exit_zero: true
+          #exit_zero: true
 
   semgrep:
     runs-on: ubuntu-latest
