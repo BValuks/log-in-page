@@ -16,12 +16,13 @@
   {% endfor %}
   <section class="content">
     <form method="post">
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Register">
-      </form>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <label for="username">Username</label>
+      <input name="username" id="username" required>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+      <input type="submit" value="Register">
+    </form>
   </section>  
 </body>
 </html>
