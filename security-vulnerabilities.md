@@ -1,4 +1,4 @@
-user.py--------------------------------------------------------------------------------------------------------------------------------------
+user.py------------------------------------------------------------------------------------------------------------------------------------
 
 - Lines 10, 18, 29 - User inputs needed to be escaped and so placeholders can be used. This is used to counteract the risk of SQL injection.
 
@@ -9,7 +9,7 @@ user.py-------------------------------------------------------------------------
 "INSERT INTO user (username, password) VALUES (?, ?)", [username, password]
 ```
 
-__init__.py-----------------------------------------------------------------------------------------------------------------------------------
+__init__.py--------------------------------------------------------------------------------------------------------------------------------
 
 - Line 8 - Secret key should not be hard coded into the codebase. Instead it should be defined as an environment variable. This would require
     you to import the 'os' module. You would then need to store it as an environment variable before running the application.
@@ -21,7 +21,7 @@ SECRET_KEY='super_secret_key'
 SECRET_KEY=os.environ.get('SECRET_KEY')
 ```
 
-schema.sql, user.py--------------------------------------------------------------------------------------------------------------------------
+schema.sql, user.py------------------------------------------------------------------------------------------------------------------------
 
 - Line 5 - When a user is added to the database, the ID is autoincremented. This would make it easier to guess the ID of other users. In this
     case you could make use of the 'uuid' module to create a random Universaly Unique Indentifier. You would then assign this number as the ID
@@ -51,7 +51,7 @@ def create(username, password):
       "INSERT INTO user (id, username, password) VALUES (?, ?, ?)", [user_id, username, password])
 ```
 
-login.html, register.html-------------------------------------------------------------------------------------------------------------------
+login.html, register.html------------------------------------------------------------------------------------------------------------------
 
 - Line 18 - As it stands, the way these HTML files are written means that the site is at risk of Cross-Site Request Forgery (CSRF) attacks. To fix 
   this   vulnerability, you need to implement anti-CSRF tokens in your forms. These tokens are used to verify that the requests submitted to your 
@@ -88,7 +88,7 @@ def create_app(test_config=None):
       <label for="username">Username</label>
 ```
 
-__init__.py-----------------------------------------------------------------------------------------------------------------------------------
+__init__.py--------------------------------------------------------------------------------------------------------------------------------
 
 - Line 45 - The Content Security Policy (CSP) is a security standard that helps prevent various types of attacks, such as Cross-Site Scripting (XSS) 
   and data injection attacks. CSP defines a set of rules that control the resources a web page is allowed to load, such as scripts, stylesheets, 
@@ -108,7 +108,7 @@ __init__.py---------------------------------------------------------------------
         return resp
 ```
 
-__init__.py-----------------------------------------------------------------------------------------------------------------------------------
+__init__.py--------------------------------------------------------------------------------------------------------------------------------
 
 - Line 10-16 - In the #create_app function, there is currently no SameSite cookie configuration. SameSite is an attribute that can be set on cookies to
   control their behaviour with regard to cross-site requests. It is a security feature that helps mitigate certain types of attacks, including Cross-Site 
@@ -126,7 +126,7 @@ __init__.py---------------------------------------------------------------------
         SESSION_COOKIE_SAMESITE='Lax')
 ```
 
-__init__.py-----------------------------------------------------------------------------------------------------------------------------------
+__init__.py--------------------------------------------------------------------------------------------------------------------------------
 
 - Line 44-47 - There is currently no protection again MIME type sniffing attacks. MIME type sniffing is a security risk where browsers may interpret a file
 as a different MIME type than what the server specified. In order to fix this vulnerability, you need to add another security header. This will tell the browser
